@@ -1,4 +1,4 @@
 module.exports = {
   Job: require('./Job'),
-  Note: require('.Note')
+  Note: require('./Note')
 }
