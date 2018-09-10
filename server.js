@@ -37,10 +37,22 @@ app.get('/scrape', (req, res) => {
             results.company = company;
             results.link = link;
             results.position = jobTitle;
+            db.Job.create(results)
+            .then((dbJob) => {
+                console.log(dbJob);
+            }).catch((err) => {
+                return res.json(err);
+            });
         });
-        console.log(results);
+        res.send("Scraped!");
     });
 });
+
+app.get('/jobs', (req, res) => {
+    db.Job.find({}).then((dbJob) => {
+        res.json(dbJob);
+    })
+})
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}`);
