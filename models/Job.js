@@ -3,13 +3,17 @@ var Schema = mongoose.Schema;
 
 var JobSchema = new Schema ({
   position: {
-    type: String,
+    type: String
   },
   link: {
     type: String
   },
   company: {
     type: String
+  },
+  saved: {
+    type: Boolean,
+    default: false
   },
   note: {
     type: Schema.Types.ObjectId,

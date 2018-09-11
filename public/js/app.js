@@ -27,7 +27,9 @@ $(() => {
           $('<a class="job-link">')
           .attr('href', jobs[i].link)
           .text(jobs[i].company),
-          $('<a class="btn saveJob">Save Job</a>')
+          $('<a class="btn saveJob">Save Job</a>').attr(
+            "data-id", jobs[i]._id
+          )
         )
       );
   
