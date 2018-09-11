@@ -83,7 +83,7 @@ $(() => {
     savedJob.saved = true;
     console.log(savedJob.id);
     $.ajax({
-      method: 'PUT',
+      method: 'POST',
       url: '/api/jobs/' + savedJob.id,
       data: savedJob
     }).then((data) => {

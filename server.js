@@ -60,8 +60,13 @@ app.get('/api/jobs/:id', (req, res) => {
     })
 });
 
-app.put('/api/jobs/:id', (req, res) => {
-    db.Job.update( { _id: req.params.id }, { $set: { saved: req.body.saved }})
+app.post('/api/jobs/:id', (req, res) => {
+    console.log(req.body);
+    console.log(`route hit`)
+    db.Job.findOneAndUpdate( { _id: req.params.id }, { $set: { saved: req.body.saved }}, (err, data) => {
+        if (err) throw err;
+        console.log(data);
+    })
 })
 
 app.listen(PORT, () => {
