@@ -81,3 +81,8 @@ body {
 a {
   text-decoration: none !important;
 }
+
+.emptyButton {
+  margin-top: 15px;
+  display: block;
+}
