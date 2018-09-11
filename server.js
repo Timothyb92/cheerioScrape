@@ -52,6 +52,16 @@ app.get('/api/jobs', (req, res) => {
     db.Job.find({}).then((dbJob) => {
         res.json(dbJob);
     })
+});
+
+app.get('/api/jobs/:id', (req, res) => {
+    db.Job.find( { _id: req.params.id } ).then((dbJob) => {
+        res.json(dbJob);
+    })
+});
+
+app.put('/api/jobs/:id', (req, res) => {
+    db.Job.update( { _id: req.params.id }, { $set: { saved: req.body.saved }})
 })
 
 app.listen(PORT, () => {

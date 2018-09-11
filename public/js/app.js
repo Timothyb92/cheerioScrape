@@ -6,12 +6,10 @@ $(() => {
     $.get('/api/jobs')
     .then((results) => {
       if (results.length > 0) {
-        console.log(results);
-        //Use a function to display each job posting
+        // console.log(results);
         renderJobs(results);
       } else {
         renderNone();
-        //Use a function to display divs when there are no job postings
       }
     });
   };
@@ -81,7 +79,17 @@ $(() => {
   };
 
   $(document).on('click', '.saveJob', function() {
-    console.log($(this).data());
+    var savedJob = $(this).data();
+    savedJob.saved = true;
+    console.log(savedJob.id);
+    $.ajax({
+      method: 'PUT',
+      url: '/api/jobs/' + savedJob.id,
+      data: savedJob
+    }).then((data) => {
+      console.log(`Promise line 90`)
+      console.log(data);
+    })
   })
 
   renderPage();
