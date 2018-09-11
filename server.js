@@ -44,11 +44,11 @@ app.get('/scrape', (req, res) => {
                 return res.json(err);
             });
         });
-        res.send("Scraped!");
+        res.redirect('/');
     });
 });
 
-app.get('/jobs', (req, res) => {
+app.get('/api/jobs', (req, res) => {
     db.Job.find({}).then((dbJob) => {
         res.json(dbJob);
     })

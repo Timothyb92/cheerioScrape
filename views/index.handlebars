@@ -1,10 +1,10 @@
-<nav class="navbar navbar-light">
+<nav class="navbar navbar-dark">
   <a href="/" class="navbar-brand">Mongo Scraper</a>
   <ul class="navbar-nav mr-auto flex-row">
     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
     <li class="nav-item"><a class="nav-link" href="/saved">Saved Job Postings</a></li>
-    <li class="nav-item"><button class="btn">Scrape Job Postings!</button></li>
-    <li class="nav-item"><button class="btn">Clear Job Postings!</button></li>
+    <li class="nav-item"><a href="/scrape"><button class="btn" id="scrapeButton">Scrape Job Postings!</button></a></li>
+    <li class="nav-item"><button class="btn" id="clearButton">Clear Job Postings!</button></li>
   </ul>
 </nav>
 <div class="jumbotron text-center p-0">
@@ -15,3 +15,9 @@
     <p>Indeed Edition</p>
   </div>
 </div>
+<div class="container job-container"></div>
+<footer class="footer">
+  <div class="container-fluid">
+    <small class="m-0">Indeed Mongo Scraper</small>
+  </div>
+</footer>

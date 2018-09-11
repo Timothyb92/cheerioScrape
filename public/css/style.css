@@ -33,8 +33,27 @@
   top: 30%;
   width: 100%;
   color: #fff;
+  font-family: serif;
+}
+
+.jumbotron h1 {
+  font-size: 100px;
+}
+
+.jumbotron p {
+  font-size: 40px;
 }
 
 nav li {
   margin-right: 30px;
+}
+
+nav {
+  background-color: #2be263;
+  padding: 20px;
+}
+
+footer {
+  background-color: #2be263;
+  padding: 10px;
 }
