@@ -25,6 +25,10 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
+app.get('/saved', (req, res) => {
+    res.render('saved');
+});
+
 app.get('/scrape', (req, res) => {
     axios.get('https://www.indeed.com/jobs?q=full+stack+developer&l=Portland%2C+OR').then((response) => {
         var $ = cheerio.load(response.data);
@@ -54,6 +58,13 @@ app.get('/api/jobs', (req, res) => {
     })
 });
 
+app.get('/api/jobs/saved', (req, res) => {
+    db.Job.find({ saved: true })
+    .then(dbSavedJob => {
+        res.json(dbSavedJob);
+    })
+})
+
 app.get('/api/jobs/:id', (req, res) => {
     db.Job.find( { _id: req.params.id } ).then((dbJob) => {
         res.json(dbJob);
@@ -61,11 +72,8 @@ app.get('/api/jobs/:id', (req, res) => {
 });
 
 app.post('/api/jobs/:id', (req, res) => {
-    console.log(req.body);
-    console.log(`route hit`)
     db.Job.findOneAndUpdate( { _id: req.params.id }, { $set: { saved: req.body.saved }}, (err, data) => {
         if (err) throw err;
-        console.log(data);
     })
 })
 

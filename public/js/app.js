@@ -15,33 +15,35 @@ $(() => {
   };
 
   function renderJobs(jobs) {
-    for (var i = 0; i < jobs.length; i++) {
-      var card = $('<div class="card">');
-      var cardHeader = $('<div class="card-header">');
-      var cardBody = $('<div class="card-body">');
-  
-      cardHeader.append(
-        $('<h4>').append(
-          $('<a class="job-link">')
-          .attr('href', jobs[i].link)
-          .text(jobs[i].company),
-          $('<a class="btn saveJob">Save Job</a>').attr(
-            "data-id", jobs[i]._id
+    jobs.forEach(element => {
+      if (!element.saved){
+        var card = $('<div class="card">');
+        var cardHeader = $('<div class="card-header">');
+        var cardBody = $('<div class="card-body">');
+    
+        cardHeader.append(
+          $('<h4>').append(
+            $('<a class="job-link">')
+            .attr('href', element.link)
+            .text(element.company),
+            $('<a class="btn saveJob">Save Job</a>').attr(
+              "data-id", element._id
+            )
           )
-        )
-      );
-  
-      cardBody.html(
-        $('<p>').text(jobs[i].position)
-      );
-  
-      card.append(
-        cardHeader,
-        cardBody
-      );
-  
-      jobContainer.append(card);
-    }
+        );
+    
+        cardBody.html(
+          $('<p>').text(element.position)
+        );
+    
+        card.append(
+          cardHeader,
+          cardBody
+        );
+        
+        jobContainer.append(card);
+      }
+    });
   };
 
   function renderNone() {
@@ -81,7 +83,6 @@ $(() => {
   $(document).on('click', '.saveJob', function() {
     var savedJob = $(this).data();
     savedJob.saved = true;
-    console.log(savedJob.id);
     $.ajax({
       method: 'POST',
       url: '/api/jobs/' + savedJob.id,
@@ -89,8 +90,9 @@ $(() => {
     }).then((data) => {
       console.log(`Promise line 90`)
       console.log(data);
-    })
-  })
+    });
+    $(this).parents('.card').remove();
+  });
 
   renderPage();
 })
