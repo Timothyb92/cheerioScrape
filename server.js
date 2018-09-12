@@ -19,7 +19,12 @@ app.engine(
     })
 );
 app.set('view engine', 'handlebars');
-mongoose.connect("mongodb://localhost/cheerioScraper", { useNewUrlParser: true });
+
+if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI);
+} else{
+    mongoose.connect("mongodb://localhost/cheerioScraper", { useNewUrlParser: true });
+}
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -76,7 +81,7 @@ app.get('/api/jobs/:id', (req, res) => {
 app.post('/api/jobs/:id', (req, res) => {
     db.Note.create(req.body)
     .then(dbNote => {
-        return db.Job.findOneAndUpdate( { _id: req.params.id }, { note: dbNote._id}, { $set: { saved: req.body.saved }}, (err, data) => {
+        return db.Job.findOneAndUpdate( { _id: req.params.id }, { note: dbNote._id}, { $set: { saved: req.body.saved }}, { new: true }, (err, data) => {
             if (err) throw err;
         })
     }).then(dbJob => res.json(dbJob));

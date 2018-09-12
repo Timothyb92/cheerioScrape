@@ -83,6 +83,20 @@ $(() => {
     $('.noteContainer').append(notes);
   }
 
+  $(document).on('click', '.removeSaved', function() {
+    console.log($(this))
+    var jobToDelete = $(this).data();
+    jobToDelete.saved = false;
+    $.ajax({
+      method: 'POST',
+      url: '/api/jobs/' + jobToDelete.id,
+      data: jobToDelete
+    }).then(data => {
+      console.log(`promise line 94`);
+      console.log(data);
+    });
+    $(this).parents('.card').remove();
+  })
 
   renderPage();
 });
