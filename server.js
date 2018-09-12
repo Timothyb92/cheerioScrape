@@ -66,15 +66,20 @@ app.get('/api/jobs/saved', (req, res) => {
 })
 
 app.get('/api/jobs/:id', (req, res) => {
-    db.Job.find( { _id: req.params.id } ).then((dbJob) => {
+    db.Job.find( { _id: req.params.id } )
+    .populate('note')
+    .then((dbJob) => {
         res.json(dbJob);
     })
 });
 
 app.post('/api/jobs/:id', (req, res) => {
-    db.Job.findOneAndUpdate( { _id: req.params.id }, { $set: { saved: req.body.saved }}, (err, data) => {
-        if (err) throw err;
-    })
+    db.Note.create(req.body)
+    .then(dbNote => {
+        return db.Job.findOneAndUpdate( { _id: req.params.id }, { note: dbNote._id}, { $set: { saved: req.body.saved }}, (err, data) => {
+            if (err) throw err;
+        })
+    }).then(dbJob => res.json(dbJob));
 })
 
 app.listen(PORT, () => {

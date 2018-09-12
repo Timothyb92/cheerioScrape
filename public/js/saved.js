@@ -61,6 +61,27 @@ $(() => {
       jobContainer.append(emptyContainer);
   };
 
+  function renderNotes(data) {
+    var notes = [];
+    var currentNote;
+
+    if(data.notes.length === 0){
+      currentNote = $('<li class="list-group-item">No notes have been saved yet.</li>');
+      notes.push(currentNote);
+    } else {
+      data.notes.forEach(element => {
+        currentNote = $('<li class="list-group-item jobNote">')
+        .text(element.body)
+        .append($('<button class="btn btn-danger">X</button>'));
+
+        currentNote.children('button').attr('data-id', element._id);
+
+        notes.push(currentNote);
+
+      })
+    }
+    $('.noteContainer').append(notes);
+  }
 
 
   renderPage();
